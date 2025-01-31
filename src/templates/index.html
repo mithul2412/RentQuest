@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rental Listings</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Open+Sans:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoHWvGch-IqnyZY4KA206gEMDDe5kTCQM&libraries=places"></script>
+  </head>
+  <body>
+    <div class="hero-container">
+      <img src="../static/css/hero.png" alt="RankQuest" class="hero-image" />
+      <div class="divider"></div>
+    </div>
+
+    <div class="filters-container">
+      <form id="filters-form" class="filters-form">
+        <!-- Price Filter -->
+        <div class="filter">
+          <label for="price">Price</label>
+          <div class="dropdown">
+            <button type="button" class="btn dropdown-btn" id="price-button">
+              Choose
+            </button>
+            <div class="dropdown-options" id="price-options">
+              <button type="button" class="btn" data-value="Any">Any</button>
+              <button type="button" class="btn" data-value="$1000">
+                $1000
+              </button>
+              <button type="button" class="btn" data-value="$2000">
+                $2000
+              </button>
+              <button type="button" class="btn" data-value="$3000">
+                $3000
+              </button>
+              <button type="button" class="btn" data-value="$5000">
+                $5000
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Locations Filter -->
+        <div class="filter">
+          <label for="locations">Enter 3 Locations</label>
+          <div class="dropdown">
+            <button
+              type="button"
+              class="btn dropdown-btn"
+              id="locations-button"
+            >
+              Enter Locations
+            </button>
+            <div class="dropdown-options" id="locations-options">
+              <div>
+                <label for="location-1">House Address</label>
+                <input
+                  type="text"
+                  id="location-1"
+                  class="location-input"
+                  placeholder="Enter house address"
+                />
+              </div>
+              <div>
+                <label for="location-2">Office Address</label>
+                <input
+                  type="text"
+                  id="location-2"
+                  class="location-input"
+                  placeholder="Enter office address"
+                />
+              </div>
+              <div>
+                <label for="location-3">Friend's Address</label>
+                <input
+                  type="text"
+                  id="location-3"
+                  class="location-input"
+                  placeholder="Enter friend's address"
+                />
+              </div>
+              <button type="button" class="btn" id="save-locations-button">
+                Save Locations
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bedrooms Filter -->
+        <div class="filter">
+          <label for="bedrooms">Beds</label>
+          <div class="dropdown">
+            <button type="button" class="btn dropdown-btn" id="bedrooms-button">
+              Choose
+            </button>
+            <div class="dropdown-options" id="bedrooms-options">
+              <button type="button" class="btn" data-value="1">1</button>
+              <button type="button" class="btn" data-value="2">2</button>
+              <button type="button" class="btn" data-value="3">3</button>
+              <button type="button" class="btn" data-value="4">4</button>
+              <button type="button" class="btn" data-value="5+">5+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bathrooms Filter -->
+        <div class="filter">
+          <label for="bathrooms">Baths</label>
+          <div class="dropdown">
+            <button
+              type="button"
+              class="btn dropdown-btn"
+              id="bathrooms-button"
+            >
+              Choose
+            </button>
+            <div class="dropdown-options" id="bathrooms-options">
+              <button type="button" class="btn" data-value="1">1</button>
+              <button type="button" class="btn" data-value="1.5">1.5</button>
+              <button type="button" class="btn" data-value="2">2</button>
+              <button type="button" class="btn" data-value="3">3</button>
+              <button type="button" class="btn" data-value="4+">4+</button>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="apply-btn">Apply Filters</button>
+      </form>
+
+      <!-- Weights Toggles -->
+      <div class="filter">
+        <label class="label-text">Rank the following factors (0 to 1):</label>
+        <div class="sliders">
+          <div class="slider-group">
+            <label for="amenities-weight">Parking</label>
+            <input
+              type="range"
+              id="amenities-weight"
+              class="slider"
+              min="0"
+              max="1"
+              step="0.1"
+              value="0.5"
+            />
+            <span id="amenities-value">0.5</span>
+          </div>
+          <div class="slider-group">
+            <label for="safety-weight">Neighborhood Safety</label>
+            <input
+              type="range"
+              id="safety-weight"
+              class="slider"
+              min="0"
+              max="1"
+              step="0.1"
+              value="0.5"
+            />
+            <span id="safety-value">0.5</span>
+          </div>
+          <div class="slider-group">
+            <label for="neighborhood-weight">Access to Amenities</label>
+            <input
+              type="range"
+              id="neighborhood-weight"
+              class="slider"
+              min="0"
+              max="1"
+              step="0.1"
+              value="0.5"
+            />
+            <span id="neighborhood-value">0.5</span>
+          </div>
+          <div class="slider-group">
+            <label for="space-weight">Living Space</label>
+            <input
+              type="range"
+              id="space-weight"
+              class="slider"
+              min="0"
+              max="1"
+              step="0.1"
+              value="0.5"
+            />
+            <span id="space-value">0.5</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-container">
+      <div id="map" class="map"></div>
+      <div id="listings" class="listings"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>
