@@ -17,7 +17,7 @@ for root, dirs, files in os.walk(dir_path):
             with open(file_path, "r", encoding="utf-8") as f:
                 file_contents = f.read()
             # Replace text and write new contents back to file
-            new_contents = file_contents.replace("SVijayB/Repo-Template", repo_name)
+            new_contents = file_contents.replace("/Repo-Template", repo_name)
             with open(file_path, "w", encoding="utf8") as f:
                 f.write(new_contents)
 
