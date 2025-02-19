@@ -22,7 +22,7 @@ Key Features
 
 ## Acknowledgments
 
-Developed as part of the University of Washington Data Science Hackathon
+Developed as part of the University of Washington Data Science Hackathon 2024
 
 
 
